@@ -28,7 +28,7 @@ async function checkBodyForValidIssue(context, github){
     return false;
   }
   core.debug(`Checking PR Body: "${body}"`)
-  const re = /#(.*?)[\s]/g;
+  const re = /[\s](.*?)#(.*?)[\s]/g;
   const matches = body.match(re);
   core.debug(`regex matches: ${matches}`)
   if(matches){
