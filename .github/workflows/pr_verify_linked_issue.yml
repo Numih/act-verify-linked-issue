@@ -8,11 +8,8 @@ on:
 jobs:
   verify_linked_issue:
     runs-on: ubuntu-latest
-    name: PR has a linked issue.
+    name: PR has linked issues.
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-
       - name: Verify Linked Issue
         uses: Numih/act-verify-linked-issue@master
         env:

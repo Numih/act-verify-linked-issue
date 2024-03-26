@@ -48,8 +48,9 @@ async function checkBodyForValidIssue(context, github){
           core.debug(`Found issue in PR Body ${issueId}`);
         }
       }
-      catch{
+      catch(e) {
         core.debug(`${owner}/${repo}#${issueId} is not a valid issue.`);
+        core.debug(e);
         return false;
       }
     }
