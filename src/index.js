@@ -30,7 +30,7 @@ async function checkBodyForValidIssue(context, github){
   core.debug(`Checking PR Body: "${body}"`)
   const re = /\s(([a-zA-Z\-\._]+)\/([a-zA-Z\-\._]+))?#([0-9]+)/g;
   const matches = body.matchAll(re);
-  core.debug(`regex matches: ${matches.length}`)
+  core.debug(`regex matches: ${matches}`)
   if(matches){
     for(let match of matches){
       core.debug(`regex match: ${match}`)
@@ -45,7 +45,7 @@ async function checkBodyForValidIssue(context, github){
           issue_number: issueId,
         });
         if(issue){
-          core.debug(`Found issue in PR Body ${issueId}`);
+          core.debug(`Found issue in PR Body ${owner}/${repo}#${issueId}`);
         }
       }
       catch(e) {
