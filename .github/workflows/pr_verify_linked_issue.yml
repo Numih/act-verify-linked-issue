@@ -13,4 +13,4 @@ jobs:
       - name: Verify Linked Issue
         uses: Numih/act-verify-linked-issue@master
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.NUMIH_GITHUB_TOKEN }}
