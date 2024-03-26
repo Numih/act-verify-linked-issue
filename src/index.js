@@ -33,11 +33,11 @@ async function checkBodyForValidIssue(context, github){
   core.debug(`regex matches: ${matches.length}`)
   if(matches){
     for(let match of matches){
-      core.debug(`regex matche: ${match}`)
+      core.debug(`regex match: ${match}`)
       const owner = match[2] || context.repo.owner
       const repo = match[3] || context.repo.repo
       const issueId = match[4]
-      core.debug(`verifying match is a valid issue issueId: ${issueId}`)
+      core.debug(`verifying match is a valid issue: ${owner}/${repo}#${issueId}`)
       try{
         let issue = await  octokit.rest.issues.get({
           owner: owner,
@@ -49,7 +49,7 @@ async function checkBodyForValidIssue(context, github){
         }
       }
       catch{
-        core.debug(`#${issueId} is not a valid issue.`);
+        core.debug(`${owner}/${repo}#${issueId} is not a valid issue.`);
         return false;
       }
     }
