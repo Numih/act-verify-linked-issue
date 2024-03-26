@@ -11,6 +11,6 @@ jobs:
     name: PR has linked issues.
     steps:
       - name: Verify Linked Issue
-        uses: Numih/act-verify-linked-issue@master
+        uses: Numih/act-verify-linked-issue@v1
         env:
           GITHUB_TOKEN: ${{ secrets.NUMIH_GITHUB_TOKEN }}
