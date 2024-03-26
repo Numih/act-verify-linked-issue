@@ -28,29 +28,32 @@ async function checkBodyForValidIssue(context, github){
     return false;
   }
   core.debug(`Checking PR Body: "${body}"`)
-  const re = /[\s](.*?)#(.*?)[\s]/g;
-  const matches = body.match(re);
-  core.debug(`regex matches: ${matches}`)
+  const re = /\s(([a-zA-Z\-\._]+)\/([a-zA-Z\-\._]+))?#([0-9]+)/g;
+  const matches = body.matchAll(re);
+  core.debug(`regex matches: ${matches.length}`)
   if(matches){
-    for(let i=0,len=matches.length;i<len;i++){
-      let match = matches[i];
-      let issueId = match.replace('#','').trim();
+    for(let match of matches){
+      core.debug(`regex matche: ${match}`)
+      const owner = match[2] || context.repo.owner
+      const repo = match[3] || context.repo.repo
+      const issueId = match[4]
       core.debug(`verifying match is a valid issue issueId: ${issueId}`)
       try{
         let issue = await  octokit.rest.issues.get({
-          owner: context.repo.owner,
-          repo: context.repo.repo,
+          owner: owner,
+          repo: repo,
           issue_number: issueId,
         });
         if(issue){
           core.debug(`Found issue in PR Body ${issueId}`);
-          return true;
         }
       }
       catch{
         core.debug(`#${issueId} is not a valid issue.`);
+        return false;
       }
     }
+    return true;
   }
   return false;
 }
